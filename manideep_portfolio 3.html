@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manideep Polineni — Full Stack Developer & ML Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #16161f;
+    --border: rgba(255,255,255,0.07);
+    --accent: #c8a96e;
+    --accent2: #7c9fff;
+    --accent3: #7fffb0;
+    --text: #e8e6e0;
+    --muted: #7a7a8a;
+    --bright: #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,10,15,0.93);
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--accent); cursor: pointer;
+    background: none; border: none; letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .nav-links { display: flex; gap: 0.2rem; list-style: none; flex-wrap: wrap; }
+
+  .nav-links button {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem; color: var(--muted);
+    background: none; border: 1px solid transparent;
+    cursor: pointer; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 0.4rem 0.8rem;
+    border-radius: 2px; transition: all 0.25s;
+  }
+
+  .nav-links button:hover { color: var(--accent); }
+
+  .nav-links button.active {
+    color: var(--accent);
+    background: rgba(200,169,110,0.1);
+    border-color: rgba(200,169,110,0.25);
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; min-height: 100vh; padding-top: 72px; animation: pageIn 0.35s ease forwards; }
+  .page.active { display: block; }
+
+  @keyframes pageIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ══════════════ HOME ══════════════ */
+  .hero {
+    min-height: calc(100vh - 72px);
+    display: flex; align-items: center;
+    padding: 4rem; position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: ''; position: absolute;
+    top: -200px; right: -200px; width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(200,169,110,0.09) 0%, transparent 70%);
+    border-radius: 50%; animation: pulse 8s ease-in-out infinite;
+  }
+
+  .hero::after {
+    content: ''; position: absolute;
+    bottom: -100px; left: -100px; width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(124,159,255,0.06) 0%, transparent 70%);
+    border-radius: 50%; animation: pulse 10s ease-in-out infinite reverse;
+  }
+
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.1); opacity: 0.7; }
+  }
+
+  .hero-content {
+    max-width: 1100px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    gap: 5rem; align-items: center;
+    position: relative; z-index: 1;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: var(--accent); letter-spacing: 0.22em;
+    text-transform: uppercase; margin-bottom: 1.4rem;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem,5vw,4.8rem);
+    font-weight: 900; line-height: 1.05;
+    color: var(--bright); margin-bottom: 0.5rem;
+  }
+
+  .hero-name span { color: var(--accent); display: block; }
+
+  .hero-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 400;
+    color: var(--muted); font-style: italic; margin-bottom: 1.5rem;
+  }
+
+  .hero-bio {
+    font-size: 0.95rem; color: var(--muted);
+    max-width: 480px; line-height: 1.85; margin-bottom: 2.5rem;
+  }
+
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--accent); color: #0a0a0f;
+    padding: 0.85rem 2rem; border-radius: 2px; border: none;
+    cursor: pointer; font-family: 'DM Mono', monospace;
+    font-size: 0.73rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 500; transition: all 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: var(--bright); transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(200,169,110,0.3);
+  }
+
+  .btn-outline {
+    border: 1px solid var(--border); color: var(--text);
+    padding: 0.85rem 2rem; border-radius: 2px;
+    background: none; cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.73rem; letter-spacing: 0.1em;
+    text-transform: uppercase; transition: all 0.3s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent); color: var(--accent); transform: translateY(-2px);
+  }
+
+  .hero-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2.2rem;
+  }
+
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-bottom: 1.6rem;
+  }
+
+  .stat-item {
+    text-align: center; padding: 1.2rem 0.8rem;
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 2px;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif; font-size: 1.85rem;
+    font-weight: 700; color: var(--accent); display: block;
+  }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace; font-size: 0.58rem;
+    color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.1em; margin-top: 0.3rem;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 0.65rem; }
+
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0.7rem 1rem;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 2px; text-decoration: none;
+    color: var(--text); font-size: 0.83rem; transition: all 0.3s;
+  }
+
+  .contact-item:hover {
+    border-color: var(--accent); color: var(--accent); transform: translateX(4px);
+  }
+
+  .contact-icon { color: var(--accent); font-size: 0.95rem; width: 20px; text-align: center; }
+
+  /* ══════════════ INNER PAGES ══════════════ */
+  .inner-page { max-width: 1100px; margin: 0 auto; padding: 4rem 4rem 6rem; }
+
+  .page-header {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-bottom: 3rem; padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-num {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: var(--accent); letter-spacing: 0.2em;
+  }
+
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 700; color: var(--bright);
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2.5rem 3rem;
+    position: relative; overflow: hidden; transition: all 0.3s;
+    margin-bottom: 1.5rem;
+  }
+
+  .exp-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; width: 3px; height: 100%;
+    background: var(--accent);
+  }
+
+  .exp-card:hover {
+    border-color: rgba(200,169,110,0.35);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  .exp-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;
+  }
+
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700; color: var(--bright); margin-bottom: 0.3rem;
+  }
+
+  .exp-company {
+    font-family: 'DM Mono', monospace; font-size: 0.78rem;
+    color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  .exp-period {
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: var(--muted); background: var(--surface2);
+    border: 1px solid var(--border); padding: 0.5rem 1rem;
+    border-radius: 2px; white-space: nowrap; height: fit-content;
+  }
+
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .exp-bullets li {
+    font-size: 0.91rem; color: var(--muted); line-height: 1.75;
+    padding-left: 1.5rem; position: relative;
+  }
+
+  .exp-bullets li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--accent); font-size: 0.75rem; top: 0.05rem;
+  }
+
+  .exp-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.5rem; }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2rem;
+    position: relative; overflow: hidden; transition: all 0.3s;
+  }
+
+  .skill-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; width: 3px; height: 0;
+    background: var(--accent); transition: height 0.3s;
+  }
+
+  .skill-card:hover { border-color: rgba(200,169,110,0.3); transform: translateY(-3px); }
+  .skill-card:hover::before { height: 100%; }
+
+  .skill-category {
+    font-family: 'DM Mono', monospace; font-size: 0.67rem;
+    color: var(--accent); text-transform: uppercase;
+    letter-spacing: 0.15em; margin-bottom: 1.2rem;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+
+  .tag {
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text); padding: 0.3rem 0.75rem;
+    border-radius: 2px; font-size: 0.79rem;
+    font-family: 'DM Mono', monospace; transition: all 0.2s;
+  }
+
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(340px,1fr)); gap: 2rem;
+  }
+
+  .project-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2.5rem;
+    position: relative; overflow: hidden; transition: all 0.4s;
+  }
+
+  .project-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(200,169,110,0.05) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+
+  .project-card:hover {
+    border-color: rgba(200,169,110,0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .project-card:hover::after { opacity: 1; }
+
+  .project-num {
+    font-family: 'Playfair Display', serif; font-size: 4rem;
+    font-weight: 900; color: rgba(200,169,110,0.07);
+    position: absolute; top: 1rem; right: 1.5rem; line-height: 1;
+  }
+
+  .project-period {
+    font-family: 'DM Mono', monospace; font-size: 0.67rem;
+    color: var(--accent2); letter-spacing: 0.08em; margin-bottom: 0.8rem;
+  }
+
+  .project-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem; font-weight: 700;
+    color: var(--bright); margin-bottom: 0.8rem; line-height: 1.3;
+  }
+
+  .project-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.75; margin-bottom: 1.5rem; }
+
+  .project-bullets { list-style: none; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .project-bullets li {
+    font-size: 0.85rem; color: var(--muted); line-height: 1.65;
+    padding-left: 1.3rem; position: relative;
+  }
+
+  .project-bullets li::before {
+    content: '·'; position: absolute; left: 0;
+    color: var(--accent); font-size: 1.2rem; top: -0.15rem;
+  }
+
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+
+  .stack-tag {
+    background: rgba(200,169,110,0.1); border: 1px solid rgba(200,169,110,0.2);
+    color: var(--accent); padding: 0.22rem 0.6rem;
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    border-radius: 1px; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  .stack-tag.ml {
+    background: rgba(124,159,255,0.1); border-color: rgba(124,159,255,0.2);
+    color: var(--accent2);
+  }
+
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem;
+    color: var(--accent); text-decoration: none;
+    text-transform: uppercase; letter-spacing: 0.1em; transition: gap 0.3s;
+  }
+
+  .project-link:hover { gap: 0.8rem; }
+
+  /* ── RESEARCH ── */
+  .research-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 3rem;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 2rem; align-items: start; transition: all 0.3s;
+  }
+
+  .research-card:hover {
+    border-color: rgba(124,159,255,0.4);
+    box-shadow: 0 10px 40px rgba(124,159,255,0.06);
+  }
+
+  .research-label {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    color: var(--accent2); text-transform: uppercase;
+    letter-spacing: 0.15em; margin-bottom: 1rem;
+  }
+
+  .research-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.55rem; font-weight: 700;
+    color: var(--bright); margin-bottom: 1rem; line-height: 1.3;
+  }
+
+  .research-desc { font-size: 0.91rem; color: var(--muted); line-height: 1.8; }
+
+  .research-date {
+    font-family: 'DM Mono', monospace; font-size: 0.73rem;
+    color: var(--muted); white-space: nowrap;
+    background: var(--surface2); padding: 0.6rem 1rem;
+    border: 1px solid var(--border); border-radius: 2px; height: fit-content;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-grid { display: grid; gap: 1.5rem; }
+
+  .edu-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2rem 2.5rem;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 1rem; align-items: center; transition: all 0.3s;
+    position: relative; overflow: hidden;
+  }
+
+  .edu-card::before {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; width: 0; height: 2px;
+    background: var(--accent); transition: width 0.4s;
+  }
+
+  .edu-card:hover { border-color: rgba(200,169,110,0.3); transform: translateX(4px); }
+  .edu-card:hover::before { width: 100%; }
+
+  .edu-degree {
+    font-family: 'Playfair Display', serif; font-size: 1.2rem;
+    font-weight: 700; color: var(--bright); margin-bottom: 0.3rem;
+  }
+
+  .edu-institution { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.3rem; }
+
+  .edu-period {
+    font-family: 'DM Mono', monospace; font-size: 0.68rem;
+    color: var(--accent); letter-spacing: 0.08em;
+  }
+
+  .edu-score { text-align: right; }
+
+  .score-val {
+    font-family: 'Playfair Display', serif; font-size: 2rem;
+    font-weight: 700; color: var(--accent); display: block;
+  }
+
+  .score-label {
+    font-family: 'DM Mono', monospace; font-size: 0.6rem;
+    color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;
+  }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievements-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+    gap: 1.5rem; margin-bottom: 3.5rem;
+  }
+
+  .achievement-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2rem;
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    transition: all 0.3s;
+  }
+
+  .achievement-card:hover {
+    border-color: rgba(200,169,110,0.3); transform: translateY(-3px);
+  }
+
+  .achievement-icon {
+    font-size: 1.8rem; min-width: 42px; text-align: center;
+    padding-top: 0.15rem;
+  }
+
+  .achievement-title {
+    font-size: 0.95rem; color: var(--bright);
+    font-weight: 500; margin-bottom: 0.4rem; line-height: 1.4;
+  }
+
+  .achievement-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+
+  .cert-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+    gap: 1.2rem;
+  }
+
+  .cert-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 1.6rem 2rem;
+    display: flex; align-items: center; gap: 1rem; transition: all 0.3s;
+  }
+
+  .cert-card:hover { border-color: rgba(200,169,110,0.3); transform: translateY(-2px); }
+
+  .cert-icon { font-size: 1.5rem; min-width: 36px; text-align: center; }
+  .cert-name { font-size: 0.92rem; color: var(--text); font-weight: 500; margin-bottom: 0.2rem; }
+
+  .cert-issuer {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  /* ── CONTACT ── */
+  .contact-page-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;
+  }
+
+  .contact-info-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 700; color: var(--bright);
+    margin-bottom: 0.8rem;
+  }
+
+  .contact-info-sub {
+    font-size: 0.92rem; color: var(--muted);
+    line-height: 1.75; margin-bottom: 2rem;
+  }
+
+  .contact-info-links { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .contact-info-item {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.2rem;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; text-decoration: none;
+    color: var(--text); font-size: 0.88rem; transition: all 0.3s;
+  }
+
+  .contact-info-item:hover {
+    border-color: var(--accent); color: var(--accent); transform: translateX(5px);
+  }
+
+  .ci-icon {
+    font-size: 1.1rem; width: 24px; text-align: center; color: var(--accent);
+  }
+
+  .ci-label {
+    font-family: 'DM Mono', monospace; font-size: 0.62rem;
+    color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 0.15rem;
+  }
+
+  .ci-value { font-size: 0.88rem; color: var(--text); }
+
+  /* Form */
+  .contact-form {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px; padding: 2.5rem;
+  }
+
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; color: var(--bright);
+    margin-bottom: 2rem;
+  }
+
+  .form-group { margin-bottom: 1.4rem; }
+
+  .form-label {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem;
+    color: var(--accent); text-transform: uppercase;
+    letter-spacing: 0.12em; display: block; margin-bottom: 0.5rem;
+  }
+
+  .form-input, .form-textarea {
+    width: 100%;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 2px; padding: 0.85rem 1rem;
+    color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; transition: border-color 0.3s; outline: none;
+    resize: none;
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    border-color: rgba(200,169,110,0.5);
+  }
+
+  .form-textarea { height: 130px; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--accent); color: #0a0a0f;
+    padding: 1rem; border-radius: 2px; border: none;
+    cursor: pointer; font-family: 'DM Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.12em;
+    text-transform: uppercase; font-weight: 500; transition: all 0.3s;
+    margin-top: 0.5rem;
+  }
+
+  .form-submit:hover {
+    background: var(--bright); transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(200,169,110,0.25);
+  }
+
+  /* ── SHARED ── */
+  .section-divider {
+    height: 1px; background: var(--border); margin: 3rem 0;
+  }
+
+  .sub-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--bright); margin-bottom: 1.5rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border); padding: 2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-text { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); }
+  .footer-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links button { font-size: 0.6rem; padding: 0.35rem 0.6rem; letter-spacing: 0.04em; }
+    .hero { padding: 3rem 1.5rem; }
+    .hero-content { grid-template-columns: 1fr; gap: 3rem; }
+    .inner-page { padding: 2.5rem 1.5rem 4rem; }
+    .exp-card { padding: 2rem 1.5rem; }
+    .research-card { grid-template-columns: 1fr; }
+    .edu-card { grid-template-columns: 1fr; }
+    .contact-page-grid { grid-template-columns: 1fr; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <span class="nav-logo" onclick="showPage('home')">Manideep Polineni</span>
+  <ul class="nav-links">
+    <li><button onclick="showPage('experience')"   id="nav-experience">Experience</button></li>
+    <li><button onclick="showPage('skills')"       id="nav-skills">Skills</button></li>
+    <li><button onclick="showPage('projects')"     id="nav-projects">Projects</button></li>
+    <li><button onclick="showPage('research')"     id="nav-research">Research</button></li>
+    <li><button onclick="showPage('education')"    id="nav-education">Education</button></li>
+    <li><button onclick="showPage('achievements')" id="nav-achievements">Achievements</button></li>
+    <li><button onclick="showPage('contact')"      id="nav-contact">Contact</button></li>
+  </ul>
+</nav>
+
+<!-- ══════════════ HOME ══════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-content">
+      <div>
+        <p class="hero-tag">// Full Stack Developer &amp; ML Engineer</p>
+        <h1 class="hero-name">Manideep<span>Polineni.</span></h1>
+        <p class="hero-role">Building scalable web apps &amp; AI-driven solutions</p>
+        <p class="hero-bio">Aspiring Software Engineer with hands-on experience in full-stack development and machine learning — specializing in scalable web applications, deep learning systems, and data-driven solutions. Proven ability to deliver impactful projects and collaborate effectively in team environments.</p>
+        <div class="hero-cta">
+          <button class="btn-primary" onclick="showPage('projects')">View Projects</button>
+          <button class="btn-outline" onclick="showPage('experience')">Work Experience</button>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="stat-grid">
+          <div class="stat-item"><span class="stat-num">8.93</span><span class="stat-label">B.Tech CGPA</span></div>
+          <div class="stat-item"><span class="stat-num">10.0</span><span class="stat-label">SSC GPA</span></div>
+          <div class="stat-item"><span class="stat-num">2</span><span class="stat-label">Projects</span></div>
+          <div class="stat-item"><span class="stat-num">1</span><span class="stat-label">Internship</span></div>
+        </div>
+        <div class="contact-links">
+          <a href="mailto:manideeppolineni@gmail.com" class="contact-item">
+            <span class="contact-icon">✉</span> manideeppolineni@gmail.com
+          </a>
+          <a href="https://github.com" target="_blank" class="contact-item">
+            <span class="contact-icon">⌥</span> GitHub Profile
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="contact-item">
+            <span class="contact-icon">↗</span> LinkedIn Profile
+          </a>
+          <span class="contact-item">
+            <span class="contact-icon">✆</span> +91 9110772026
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p class="footer-text">© 2026 — Built with precision</p>
+    <p class="footer-name">Manideep Polineni</p>
+    <p class="footer-text">Tamil Nadu, India</p>
+  </footer>
+</div>
+
+<!-- ══════════════ EXPERIENCE ══════════════ -->
+<div class="page" id="page-experience">
+  <div class="inner-page">
+    <div class="page-header">
+      <span class="page-num">01</span>
+      <h1 class="page-title">Work Experience</h1>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <p class="exp-role">Web Development Intern</p>
+          <p class="exp-company">Uptoskills</p>
+        </div>
+        <span class="exp-period">Feb 2026 — May 2026</span>
+      </div>
+      <ul class="exp-bullets">
+        <li>Developed a full-stack web application using Node.js, Express.js, MySQL and PostgreSQL, improving system efficiency by approximately 30%.</li>
+        <li>Built responsive UI components using HTML, CSS, and JavaScript, enhancing user experience and reducing page load time by approximately 25%.</li>
+        <li>Collaborated in a team of 7 developers, following SDLC practices including testing, debugging, and version control via Git.</li>
+        <li>Optimized backend performance and improved database query efficiency for scalable operations across the platform.</li>
+      </ul>
+      <div class="exp-tech">
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">Express.js</span>
+        <span class="stack-tag">MySQL</span>
+        <span class="stack-tag">PostgreSQL</span>
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS</span>
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">Git</span>
+        <span class="stack-tag">SDLC</span>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p class="footer-text">© 2026 — Built with precision</p>
+    <p class="footer-name">Manideep Polineni</p>
+    <p class="footer-text">Tamil Nadu, India</p>
+  </footer>
+</div>
+
+<!-- ══════════════ SKILLS ══════════════ -->
+<div class="page" id="page-skills">
+  <div class="inner-page">
+    <div class="page-header">
+      <span class="page-num">02</span>
+      <h1 class="page-title">Technical Skills</h1>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <p class="skill-category">Languages</p>
+        <div class="skill-tags">
+          <span class="tag">Java</span>
+          <span class="tag">Python</span>
+          <span class="tag">C</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">SQL</span>
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <p class="skill-category">Backend & APIs</p>
+        <div class="skill-tags">
+          <span class="tag">Node.js</span>
+          <span class="tag">Express.js</span>
+          <span class="tag">REST APIs</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">MongoDB</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <p class="skill-category">Machine Learning & AI</p>
+        <div class="skill-tags">
+          <span class="tag">CNN</span>
+          <span class="tag">TensorFlow</span>
+          <span class="tag">Keras</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Image Processing</span>
+          <span class="tag">Model Training</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <p class="skill-category">Developer Tools</p>
+        <div class="skill-tags">
+          <span class="tag">Git</span>
+          <span class="tag">GitHub</span>
+          <span class="tag">VS Code</span>
+          <span class="tag">Jupyter Notebook</span>
+          <span class="tag">Google Colab</span>
+          <span class="tag">Anaconda</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <p class="skill-category">Core CS Concepts</p>
+        <div class="skill-tags">
+          <span class="tag">Data Structures</span>
+          <span class="tag">Algorithms</span>
+          <span class="tag">DBMS</span>
+          <span class="tag">Operating Systems</span>
+          <span class="tag">Computer Networks</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <p class="skill-category">Testing & Practices</p>
+        <div class="skill-tags">
+          <span class="tag">Debugging</span>
+          <span class="tag">Unit Testing</span>
+          <span class="tag">SDLC</span>
+          <span class="tag">Version Control</span>
+          <span class="tag">Agile</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p class="footer-text">© 2026 — Built with precision</p>
+    <p class="footer-name">Manideep Polineni</p>
+    <p class="footer-text">Tamil Nadu, India</p>
+  </footer>
+</div>
+
+<!-- ══════════════ PROJECTS ══════════════ -->
+<div class="page" id="page-projects">
+  <div class="inner-page">
+    <div class="page-header">
+      <span class="page-num">03</span>
+      <h1 class="page-title">Projects</h1>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <span class="project-num">01</span>
+        <p class="project-period">Sep 2025 — Nov 2025</p>
+        <h3 class="project-title">Farmer-to-Consumer E-Commerce Platform</h3>
+        <ul class="project-bullets">
+          <li>Developed a scalable full-stack web application enabling direct farmer-to-consumer transactions, eliminating intermediaries and improving market accessibility.</li>
+          <li>Built RESTful APIs using Node.js and Express.js for authentication, product management, and order processing.</li>
+          <li>Integrated MongoDB for managing users, products, and transactions with responsive frontend interfaces.</li>
+        </ul>
+        <div class="project-stack">
+          <span class="stack-tag">Node.js</span>
+          <span class="stack-tag">Express.js</span>
+          <span class="stack-tag">MongoDB</span>
+          <span class="stack-tag">HTML</span>
+          <span class="stack-tag">CSS</span>
+          <span class="stack-tag">JavaScript</span>
+        </div>
+        <a href="https://github.com" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card">
+        <span class="project-num">02</span>
+        <p class="project-period">Feb 2026 — Apr 2026</p>
+        <h3 class="project-title">Lipoma Skin Tissue Detection System</h3>
+        <ul class="project-bullets">
+          <li>Developed a deep learning-based medical image classification system to detect lipoma (benign fatty tumors) from image data, enabling early-stage identification.</li>
+          <li>Built and trained CNN models with image preprocessing techniques including normalization and feature extraction to improve prediction accuracy.</li>
+          <li>Implemented an end-to-end ML pipeline covering data preprocessing, model training, evaluation, and prediction.</li>
+        </ul>
+        <div class="project-stack">
+          <span class="stack-tag ml">Python</span>
+          <span class="stack-tag ml">TensorFlow</span>
+          <span class="stack-tag ml">Keras</span>
+          <span class="stack-tag ml">OpenCV</span>
+          <span class="stack-tag ml">NumPy</span>
+          <span class="stack-tag ml">Pandas</span>
+          <span class="stack-tag ml">CNN</span>
+        </div>
+        <a href="https://github.com" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
+    </div>
+  </div>
+  <footer>
+    <p class="footer-text">© 2026 — Built with precision</p>
+    <p class="footer-name">Manideep Polineni</p>
+    <p class="footer-text">Tamil Nadu, India</p>
+  </footer>
+</div>
+
+<!-- ══════════════ RESEARCH ══════════════ -->
+<div class="page" id="page-research">
+  <div class="inner-page">
+    <div class="page-header">
+      <span class="page-num">04</span>
+      <h1 class="page-title">Research</h1>
+    </div>
+    <div class="research-card">
+      <div>
+        <p class="research-label">// Co-authored Research Paper</p>
+        <h3 class="research-title">Web Application for Local Farmers Market and Direct Sales</h3>
+        <p class="research-desc">Co-authored a research paper focused on eliminating middlemen in the agricultural supply chain through a digital marketplace. Designed system modules including farmer authentication, product management, and database integration. Proposed a transparent digital platform enabling farmers to sell products directly to consumers, improving livelihoods and reducing supply chain inefficiencies. The paper also covers system architecture, security considerations, and scalability analysis of the proposed platform.</p>
+      </div>
+      <div class="research-date">November 2025</div>
+    </div>
+  </div>
+  <footer>
+    <p class="footer-text">© 2026 — Built with precision</p>
+    <p class="footer-name">Manideep Polineni</p>
+    <p class="footer-text">Tamil Nadu, India</p>
+  </footer>
+</div>
+
+<!-- ══════════════ EDUCATION ══════════════ -->
+<div class="page" id="page-education">
+  <div class="inner-page">
+    <div class="page-header">
+      <span class="page-num">05</span>
+      <h1 class="page-title">Education</h1>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div>
+          <h3 class="edu-degree">B.Tech — Computer Science & Engineering</h3>
+          <p class="edu-institution">Kalasalingam Academy of Research and Education, Tamil Nadu</p>
+          <p class="edu-period">2023 — Present</p>
+        </div>
+        <div class="edu-score">
+          <span class="score-val">8.93</span>
+          <span class="score-label">CGPA / 10</span>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div>
+          <h3 class="edu-degree">Intermediate — BIEAP (MPC)</h3>
+          <p class="edu-institution">Narayana Junior College, Andhra Pradesh</p>
+          <p class="edu-period">2021 — 2023</p>
+        </div>
+        <div class="edu-score">
+          <span class="score-val">9.84</span>
+          <span class="score-label">Score</span>
+        </div>
+      </div>
+      <div class="edu-card">
+        <div>
+          <h3 class="edu-degree">Secondary School Certificate (SSC)</h3>
+          <p class="edu-institution">Bhashyam School</p>
+          <p class="edu-period">2021</p>
+        </div>
+        <div class="edu-score">
+          <span class="score-val">10.0</span>
+          <span class="score-label">GPA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p class="footer-text">© 2026 — Built with precision</p>
+    <p class="footer-name">Manideep Polineni</p>
+    <p class="footer-text">Tamil Nadu, India</p>
+  </footer>
+</div>
+
+<!-- ══════════════ ACHIEVEMENTS ══════════════ -->
+<div class="page" id="page-achievements">
+  <div class="inner-page">
+    <div class="page-header">
+      <span class="page-num">06</span>
+      <h1 class="page-title">Achievements</h1>
+    </div>
+
+    <div class="achievements-grid">
+      <div class="achievement-card">
+        <div class="achievement-icon">🚀</div>
+        <div>
+          <p class="achievement-title">IDE Bootcamp — AICTE</p>
+          <p class="achievement-desc">Selected participant in the Innovation, Design and Entrepreneurship Bootcamp by AICTE — gaining exposure to startup ideation, design thinking, and problem-solving methodologies.</p>
+        </div>
+      </div>
+      <div class="achievement-card">
+        <div class="achievement-icon">🏆</div>
+        <div>
+          <p class="achievement-title">Hackathon Positions</p>
+          <p class="achievement-desc">Secured positions in multiple hackathons including Digital Forensics Signals and Disaster Management Systems, demonstrating rapid prototyping and strong teamwork skills.</p>
+        </div>
+      </div>
+      <div class="achievement-card">
+        <div class="achievement-icon">💻</div>
+        <div>
+          <p class="achievement-title">Coding Competitions</p>
+          <p class="achievement-desc">Actively engaged in coding challenges and technical competitions, consistently strengthening analytical thinking and problem-solving abilities.</p>
+        </div>
+      </div>
+      <div class="achievement-card">
+        <div class="achievement-icon">🏅</div>
+        <div>
+          <p class="achievement-title">Inter-College Kabaddi</p>
+          <p class="achievement-desc">Competed in inter-college kabaddi tournaments, demonstrating leadership, teamwork, discipline, and competitive spirit beyond academics.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+    <h2 class="sub-header">Certifications</h2>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-icon">🗄</div>
+        <div>
+          <p class="cert-name">Database Management Systems</p>
+          <p class="cert-issuer">CodeChef</p>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">☕</div>
+        <div>
+          <p class="cert-name">Java Programming Language</p>
+          <p class="cert-issuer">CodeTantra</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p class="footer-text">© 2026 — Built with precision</p>
+    <p class="footer-name">Manideep Polineni</p>
+    <p class="footer-text">Tamil Nadu, India</p>
+  </footer>
+</div>
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<div class="page" id="page-contact">
+  <div class="inner-page">
+    <div class="page-header">
+      <span class="page-num">07</span>
+      <h1 class="page-title">Contact</h1>
+    </div>
+    <div class="contact-page-grid">
+      <div>
+        <h2 class="contact-info-title">Let's work together.</h2>
+        <p class="contact-info-sub">I'm currently open to internship opportunities, collaborative projects, and full-time roles in software engineering or machine learning. Feel free to reach out — I'd love to connect.</p>
+        <div class="contact-info-links">
+          <a href="mailto:manideeppolineni@gmail.com" class="contact-info-item">
+            <span class="ci-icon">✉</span>
+            <div>
+              <p class="ci-label">Email</p>
+              <p class="ci-value">manideeppolineni@gmail.com</p>
+            </div>
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="contact-info-item">
+            <span class="ci-icon">↗</span>
+            <div>
+              <p class="ci-label">LinkedIn</p>
+              <p class="ci-value">linkedin.com/in/manideep-polineni</p>
+            </div>
+          </a>
+          <a href="https://github.com" target="_blank" class="contact-info-item">
+            <span class="ci-icon">⌥</span>
+            <div>
+              <p class="ci-label">GitHub</p>
+              <p class="ci-value">github.com/manideep-polineni</p>
+            </div>
+          </a>
+          <span class="contact-info-item">
+            <span class="ci-icon">✆</span>
+            <div>
+              <p class="ci-label">Phone</p>
+              <p class="ci-value">+91 9110772026</p>
+            </div>
+          </span>
+          <span class="contact-info-item">
+            <span class="ci-icon">📍</span>
+            <div>
+              <p class="ci-label">Location</p>
+              <p class="ci-value">Tamil Nadu, India</p>
+            </div>
+          </span>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h3 class="form-title">Send a Message</h3>
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input class="form-input" type="text" placeholder="John Doe" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="john@example.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Subject</label>
+          <input class="form-input" type="text" placeholder="Internship Opportunity / Collaboration" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Hi Manideep, I'd like to..."></textarea>
+        </div>
+        <button class="form-submit" onclick="handleSubmit()">Send Message →</button>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p class="footer-text">© 2026 — Built with precision</p>
+    <p class="footer-name">Manideep Polineni</p>
+    <p class="footer-text">Tamil Nadu, India</p>
+  </footer>
+</div>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    const btn = document.getElementById('nav-' + id);
+    if (btn) btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }
+
+  function handleSubmit() {
+    const btn = document.querySelector('.form-submit');
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#7fffb0';
+    setTimeout(() => {
+      btn.textContent = 'Send Message →';
+      btn.style.background = '';
+    }, 3000);
+  }
+</script>
+</body>
+</html>
